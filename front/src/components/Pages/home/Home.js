@@ -33,8 +33,7 @@ const Home = () => {
           <HomeItem index={4}>
             안녕하세요 <span>,</span>
           </HomeItem>
-          <HomeItem index={5}>{me.nickname}</HomeItem>
-
+          <HomeItem index={5}>{me}</HomeItem>
           <UserSettleInfo>
             <UserSettleInfoItem>
               <div> 총 정산횟수</div>

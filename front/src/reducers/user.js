@@ -47,9 +47,8 @@ const reducer = (state = initialState, action) => {
         draft.logInDone = false
         break
       case LOG_IN_SUCCESS:
-        console.log('로그인', action.data)
         draft.logInLoading = false
-        draft.me = action.data.UserName
+        draft.me = action.data.nickname
         draft.logInDone = true
         break
       case LOG_IN_FAILURE:
@@ -96,7 +95,7 @@ const reducer = (state = initialState, action) => {
         break
       case LOAD_MY_INFO_SUCCESS:
         draft.loadMyInfoLoading = false
-        draft.me = action.data
+        draft.me = action.data.nickname
         draft.loadMyInfoDone = true
         break
       case LOAD_MY_INFO_FAILURE:

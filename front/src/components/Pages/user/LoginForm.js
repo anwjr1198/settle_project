@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import useInput from '../../hooks/useInput'
 import { FormWrapper, Input } from './styles'
 import CommonBtn from '../../Button/CommonBtn'
-import { LOG_IN_REQUEST } from '../../../reducers/user'
+import { LOG_IN_REQUEST, CHANGE_PAGEINDEX } from '../../../reducers/user'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import Loading from '../../Loading'
@@ -10,7 +10,7 @@ import Loading from '../../Loading'
 const LoginForm = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { me, logInDone, logInLoading } = useSelector(state => state.user)
+  const { me, logInLoading } = useSelector(state => state.user)
   const [email, onChangeEmail] = useInput('')
   const [password, onChangePassword] = useInput('')
 
@@ -21,15 +21,20 @@ const LoginForm = () => {
         type: LOG_IN_REQUEST,
         data: { email, password },
       })
+      dispatch({
+        type: CHANGE_PAGEINDEX,
+        data: 1,
+      })
+      localStorage.setItem('pageIndex', 1)
     },
     [email, password]
   )
 
   useEffect(() => {
-    if (logInDone) {
+    if (me) {
       history.replace('/')
     }
-  }, [logInDone])
+  }, [me])
 
   return (
     <FormWrapper onSubmit={onSubmitForm}>

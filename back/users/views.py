@@ -56,7 +56,7 @@ class LoginView(APIView):
         response = Response()
         response.set_cookie(key='jwt',value=token, httponly=True)
     
-        content = {"message": "success to login","UserName": NickName, "jwt": token}
+        content = {"message": "success to login","nickname": NickName, "jwt": token}
         response.data=content
 
         return response
