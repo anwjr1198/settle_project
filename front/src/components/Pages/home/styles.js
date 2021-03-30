@@ -134,6 +134,8 @@ export const HomeTitle = styled.div`
 `
 
 export const SettleDirectBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
   animation: ${fadeIn};
   animation-delay: 1750ms;
   animation-fill-mode: forwards;
@@ -155,4 +157,9 @@ export const SettleDirectBtn = styled.div`
     rgba(254, 166, 102, 1) 50%,
     rgba(250, 201, 99, 1) 100%
   );
+
+  & > span {
+    padding-right: 2%;
+    color: black;
+  }
 `

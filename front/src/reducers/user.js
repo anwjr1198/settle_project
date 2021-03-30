@@ -1,6 +1,7 @@
 import produce from 'immer'
 
 export const initialState = {
+  pageIndex: 1,
   logInLoading: false, // 로그인
   logInDone: false,
   logInError: null,
@@ -12,6 +13,8 @@ export const initialState = {
   signUpError: null,
   me: null, // 로그인한 유저
 }
+
+export const CHANGE_PAGEINDEX = 'CHANGE_PAGEINDEX'
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'
@@ -32,6 +35,11 @@ export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE'
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
     switch (action.type) {
+      // 페이지 유지
+      case CHANGE_PAGEINDEX:
+        draft.pageIndex = action.data
+        break
+
       // 로그인
       case LOG_IN_REQUEST:
         draft.logInLoading = true

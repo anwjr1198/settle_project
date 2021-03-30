@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   HomeWarpper,
   HomeItem,
@@ -7,10 +7,24 @@ import {
   UserSettleInfoItem,
   SettleDirectBtn,
 } from './styles'
-import { useSelector } from 'react-redux'
+import { FaChevronRight } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { CHANGE_PAGEINDEX } from '../../../reducers/user'
 
 const Home = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
   const { me } = useSelector(state => state.user)
+
+  const onSettleDirect = useCallback(() => {
+    history.push('/settle')
+    localStorage.setItem('pageIndex', 2)
+    dispatch({
+      type: CHANGE_PAGEINDEX,
+      data: 2,
+    })
+  }, [])
 
   return (
     <HomeWarpper>
@@ -50,7 +64,12 @@ const Home = () => {
         </>
       )}
 
-      <SettleDirectBtn>정산 바로가기</SettleDirectBtn>
+      <SettleDirectBtn onClick={onSettleDirect}>
+        <p>정산 바로가기</p>
+        <span>
+          <FaChevronRight />
+        </span>
+      </SettleDirectBtn>
     </HomeWarpper>
   )
 }

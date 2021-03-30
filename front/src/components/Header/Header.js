@@ -7,7 +7,7 @@ import { LOAD_MY_INFO_REQUEST } from '../../reducers/user'
 
 const Header = () => {
   const dispatch = useDispatch()
-  const { me } = useSelector(state => state.user)
+  const { me, logInDone } = useSelector(state => state.user)
 
   useEffect(() => {
     dispatch({
