@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { NavBarWrapper, NavBarItem } from './styles'
 
 const NavBar = () => {
-  const [activeTab, setActiveTab] = useState(1)
+  const navBarIndex = localStorage.getItem('pageIndex')
+  const [activeTab, setActiveTab] = useState(parseInt(navBarIndex))
 
-  // TODO : redux로 page index를 공유해야함
   const onClickTab = useCallback((e, index) => {
     e.preventDefault()
     setActiveTab(index)
@@ -18,6 +18,7 @@ const NavBar = () => {
           tabIndex={activeTab === 1 ? 'active' : ''}
           onClick={e => {
             onClickTab(e, 1)
+            localStorage.setItem('pageIndex', 1)
           }}
         >
           <Link to="/">홈</Link>
@@ -26,6 +27,7 @@ const NavBar = () => {
           tabIndex={activeTab === 2 ? 'active' : ''}
           onClick={e => {
             onClickTab(e, 2)
+            localStorage.setItem('pageIndex', 2)
           }}
         >
           <Link to="/settle">정산하기</Link>
@@ -34,6 +36,7 @@ const NavBar = () => {
           tabIndex={activeTab === 3 ? 'active' : ''}
           onClick={e => {
             onClickTab(e, 3)
+            localStorage.setItem('pageIndex', 3)
           }}
         >
           <Link to="/history">히스토리</Link>
@@ -42,6 +45,7 @@ const NavBar = () => {
           tabIndex={activeTab === 4 ? 'active' : ''}
           onClick={e => {
             onClickTab(e, 4)
+            localStorage.setItem('pageIndex', 4)
           }}
         >
           <Link to="/account">계좌관리</Link>

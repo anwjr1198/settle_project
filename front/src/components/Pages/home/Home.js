@@ -7,18 +7,19 @@ import {
   UserSettleInfoItem,
   SettleDirectBtn,
 } from './styles'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
-  const LoginNickname = localStorage.getItem('nickname')
+  const { me } = useSelector(state => state.user)
 
   return (
     <HomeWarpper>
-      {LoginNickname ? (
+      {me ? (
         <>
           <HomeItem index={4}>
             안녕하세요 <span>,</span>
           </HomeItem>
-          <HomeItem index={5}>{LoginNickname}</HomeItem>
+          <HomeItem index={5}>{me.nickname}</HomeItem>
 
           <UserSettleInfo>
             <UserSettleInfoItem>

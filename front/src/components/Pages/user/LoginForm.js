@@ -27,8 +27,6 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (logInDone) {
-      localStorage.setItem('email', email)
-      localStorage.setItem('nickname', me)
       history.replace('/')
     }
   }, [logInDone])

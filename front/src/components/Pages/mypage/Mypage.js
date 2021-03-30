@@ -17,8 +17,6 @@ const Mypage = () => {
 
   useEffect(() => {
     if (logOutDone) {
-      localStorage.removeItem('email')
-      localStorage.removeItem('nickname')
       history.replace('/')
     }
   }, [logOutDone])
