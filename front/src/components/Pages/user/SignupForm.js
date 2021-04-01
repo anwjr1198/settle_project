@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import useInput from '../../hooks/useInput'
 import CommonBtn from '../../Button/CommonBtn'
-import { FormWrapper, Input } from './styles'
-import { SIGN_UP_REQUEST } from '../../../reducers/user'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import {FormWrapper, Input} from './styles'
+import {SIGN_UP_REQUEST} from '../../../reducers/user'
+import {useDispatch, useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import Loading from '../../Loading'
 
 const SignupForm = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { signUpDone, signUpLoading } = useSelector(state => state.user)
+  const {signUpDone, signUpLoading} = useSelector(state => state.user)
   const [email, onChangeEmail] = useInput('')
   const [nickname, onChangeNickname] = useInput('')
   const [password, onChangePassword] = useInput('')
@@ -40,7 +40,7 @@ const SignupForm = () => {
       }
       dispatch({
         type: SIGN_UP_REQUEST,
-        data: { email, nickname, password },
+        data: {email, nickname, password},
       })
     },
     [email, nickname, password, passwordCheck]

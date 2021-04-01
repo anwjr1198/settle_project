@@ -1,6 +1,6 @@
 import React from 'react'
 // import { CommonBtnWrapper } from './styles'
-import styled, { css } from 'styled-components'
+import styled, {css} from 'styled-components'
 
 const CommonBtnWrapper = styled.button`
   font-size: 15px;
@@ -28,7 +28,7 @@ const CommonBtnWrapper = styled.button`
   ${props =>
     props.size === 'mid' &&
     css`
-      width: 70%;
+      width: 80%;
     `}
 
   ${props =>
@@ -45,7 +45,7 @@ const CommonBtnWrapper = styled.button`
   }
 `
 
-const CommonBtn = ({ children, size, onClick }) => {
+const CommonBtn = ({children, size, onClick}) => {
   return (
     <CommonBtnWrapper onClick={onClick} size={size}>
       {children}

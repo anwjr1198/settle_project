@@ -1,4 +1,4 @@
-import styled, { keyframes, css } from 'styled-components'
+import styled, {keyframes, css} from 'styled-components'
 
 const slideFromLeft = keyframes`
     from {
@@ -147,7 +147,7 @@ export const SettleDirectBtn = styled.div`
   border-radius: 10px;
   padding: 10px 0px;
   text-indent: 20px;
-  font-size: 20px;
+  font-size: 17px;
   color: white;
   font-weight: bold;
   background: rgb(255, 158, 125);

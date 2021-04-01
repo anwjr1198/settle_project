@@ -1,16 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
-import { BrowserRouter } from 'react-router-dom'
-import { createStore, applyMiddleware, compose } from 'redux'
-import { Provider } from 'react-redux'
+import {BrowserRouter} from 'react-router-dom'
+import {createStore, applyMiddleware, compose} from 'redux'
+import {Provider} from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './sagas'
 import rootReducer from './reducers'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import {composeWithDevTools} from 'redux-devtools-extension'
 
 const sagaMiddleware = createSagaMiddleware()
-
 const enhancer =
   process.env.NODE_ENV === 'production'
     ? compose(applyMiddleware(sagaMiddleware))

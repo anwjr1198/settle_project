@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, {useCallback} from 'react'
 import {
   HomeWarpper,
   HomeItem,
@@ -7,15 +7,15 @@ import {
   UserSettleInfoItem,
   SettleDirectBtn,
 } from './styles'
-import { FaChevronRight } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import { CHANGE_PAGEINDEX } from '../../../reducers/user'
+import {FaChevronRight} from 'react-icons/fa'
+import {useDispatch, useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
+import {CHANGE_PAGEINDEX} from '../../../reducers/user'
 
 const Home = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { me } = useSelector(state => state.user)
+  const {me} = useSelector(state => state.user)
 
   const onSettleDirect = useCallback(() => {
     history.push('/settle')
