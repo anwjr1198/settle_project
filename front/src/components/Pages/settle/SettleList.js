@@ -1,32 +1,34 @@
 import React from 'react'
 import {
   SettleListWrapper,
-  SettleItem,
-  SettleHeader,
-  SettleNumber,
-  SettleMember,
-  SettleMemberItem,
+  SettleListItem,
+  SettleListHeader,
+  SettleListNumber,
+  SettleListTitle,
+  SettleListWriteBtn,
+  SettleListMember,
+  SettleListMemberItem,
 } from './styles'
 
 const SettleList = ({title, member, number}) => {
   return (
     <SettleListWrapper>
-      <SettleItem>
-        <SettleHeader>
-          <SettleNumber>
+      <SettleListItem>
+        <SettleListHeader>
+          <SettleListNumber>
             <span>#</span>
             {number}
-          </SettleNumber>
-          <p>{title}</p>
-          <div>Icon</div>
-        </SettleHeader>
+          </SettleListNumber>
+          <SettleListTitle>{title}</SettleListTitle>
+          <SettleListWriteBtn>Icon</SettleListWriteBtn>
+        </SettleListHeader>
 
-        <SettleMember>
-          {member.map((value, index) => (
-            <SettleMemberItem key={index}>{value}</SettleMemberItem>
-          ))}
-        </SettleMember>
-      </SettleItem>
+        <SettleListMember>
+          {/* {member.map((value, index) => (
+            <SettleListMemberItem key={index}>{value}</SettleListMemberItem>
+          ))} */}
+        </SettleListMember>
+      </SettleListItem>
     </SettleListWrapper>
   )
 }

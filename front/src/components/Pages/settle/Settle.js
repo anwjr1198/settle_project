@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useRef, useState, useCallback} from 'react'
 import SettleList from './SettleList'
 import useInput from '../../hooks/useInput'
 import {
@@ -11,37 +11,73 @@ import {
   SettleBoxHideIcon,
   SettleMember,
   SettleMemberItem,
+  CloseIcon,
   SelectNumber,
-  SettleResetBtn,
+  SettleCompleteBtn,
+  SettleWriteBtn,
   SettleFinalBtn,
 } from './styles'
-import CommonBtn from '../../Button/CommonBtn'
-
-// import {FaPlus, FaChevronDown} from 'react-icons/fa'
 
 const Settle = () => {
   const [meetTitle, onChangeMeetTitle, setMeetTitle] = useInput('')
-  const [memberInput, onChangeInput, setMemberInput] = useInput('')
 
-  const [meetMember, setMeetMember] = useState([])
+  // const [memberInput, onChangeInput, setMemberInput] = useInput('')
+
+  const [memberInput, setMemberInput] = useState('')
+  const [members, setMembers] = useState([])
   const [selectNumber, onChangeSelect] = useInput('선택')
 
-  const onAddMember = () => {
-    setMeetMember([...meetMember.concat(memberInput)])
-    setMemberInput('')
+  const [addSettleList, SetSettleList] = useState(false)
+  const onChangeMemberInput = e => {
+    setMemberInput(e.target.value)
   }
 
-  const onSettleReset = () => {
-    setMeetTitle('')
-    setMemberInput('')
-    setMeetMember([])
-  }
+  const nextId = useRef(0)
 
-  const onMemberRemove = e => {
-    console.log(e.target.index)
-    console.log('인덱스', meetMember.indexOf[2])
-    let delete_target = meetMember
-    console.log(delete_target)
+  const onAddMemberClick = useCallback(
+    e => {
+      if (memberInput.trim()) {
+        const member = {
+          id: nextId.current,
+          value: memberInput,
+        }
+        setMembers(members.concat(member))
+        setMemberInput('')
+        nextId.current += 1
+      }
+    },
+    [memberInput]
+  )
+  const onAddMemberEnter = useCallback(
+    e => {
+      if (e.keyCode === 13 && memberInput.trim()) {
+        const member = {
+          id: nextId.current,
+          value: memberInput,
+        }
+        setMembers(members.concat(member))
+        setMemberInput('')
+        nextId.current += 1
+      }
+    },
+    [memberInput]
+  )
+
+  const onMemberRemove = useCallback(
+    id => {
+      setMembers(members.filter(member => member.id !== id))
+    },
+    [members]
+  )
+
+  // const onSettleReset = () => {
+  //   setMeetTitle('')
+  //   setMemberInput('')
+  //   setMembers([])
+  // }
+
+  const onAddSettleList = () => {
+    SetSettleList(true)
   }
 
   return (
@@ -53,24 +89,31 @@ const Settle = () => {
             type="text"
             value={meetTitle}
             onChange={onChangeMeetTitle}
+            placeholder={'15자 이내로 작성'}
           />
-          {/* <SettleBoxHideIcon /> */}
         </SettleMakeBoxItem>
         <SettleMakeBoxItem>
           <p> 참석자 이름</p>
           <SettleMakeBoxInput
             type="text"
             value={memberInput}
-            onChange={onChangeInput}
+            onChange={onChangeMemberInput}
+            onKeyDown={onAddMemberEnter}
+            placeholder={'입력후 Enter or Click'}
           />
-          <PlusIcon onClick={onAddMember} />
+
+          <PlusIcon onClick={onAddMemberClick} />
         </SettleMakeBoxItem>
 
         <SettleMember>
-          {meetMember.map((member, index) => {
+          {members.map((member, index) => {
             return (
-              <SettleMemberItem onClick={onMemberRemove} key={index}>
-                {member}
+              <SettleMemberItem
+                onClick={() => onMemberRemove(member.id)}
+                key={index}
+              >
+                {member.value}
+                <CloseIcon />
               </SettleMemberItem>
             )
           })}
@@ -87,11 +130,17 @@ const Settle = () => {
             <option>5차</option>
             <option>6차</option>
           </select>
-          <SettleResetBtn onClick={onSettleReset}>초기화</SettleResetBtn>
+          <SettleCompleteBtn onClick={onAddSettleList}>
+            모임 추가
+          </SettleCompleteBtn>
         </SelectNumber>
       </SettleMakeBox>
 
-      <SettleList title={meetTitle} member={meetMember} number={selectNumber} />
+      {addSettleList ? (
+        <SettleList title={meetTitle} number={selectNumber} />
+      ) : (
+        ''
+      )}
 
       <SettleFinalBtn size="mid">최종결산</SettleFinalBtn>
     </SettleWrapper>

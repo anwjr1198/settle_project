@@ -1,47 +1,51 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
+import UserList from './UserList'
 
-const History = () => {
-  const [inputs, setInputs] = useState({
-    userName: '',
-    userAge: '',
-  })
+function Histroy() {
+  const [inputs, setInputs] = useState('')
 
-  const handleOnChange = e => {
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value,
-    })
+  const onChange = e => {
+    setInputs(e.target.value)
+
+    console.log(e.target.value)
   }
 
   const [users, setUsers] = useState([])
 
-  const handleOnClick = () => {
-    const {userName, userAge} = inputs
+  const nextId = useRef(0)
+  console.log('멤버', nextId)
 
-    // users 배열에 추가할 user 객체
+  const onCreate = () => {
     const user = {
-      userName,
-      userAge,
+      id: nextId.current,
+      value: inputs,
     }
+    setUsers(users.concat(user))
 
-    // spread 연산을 통해서 기존의 값을 복사하고, users State에 추가
-    setUsers([...users, user])
+    setInputs('')
+    nextId.current += 1
+  }
 
-    // 입력이 끝나고 inputs를 비워주는 역할
-    setInputs({
-      userName: '',
-      userAge: '',
-    })
+  const onRemove = id => {
+    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+    // = user.id 가 id 인 것을 제거함
+    setUsers(users.filter(user => user.id !== id))
   }
   return (
-    <div>
-      <h1>사용자를 입력하세요!</h1>
+    <>
       <div>
-        <input type="text" name="userName" onChange={handleOnChange} />
-        <input type="text" name="userAge" onChange={handleOnChange} />
+        <input
+          name="username"
+          placeholder="계정명"
+          onChange={onChange}
+          value={inputs}
+        />
+
+        <button onClick={onCreate}>등록</button>
       </div>
-    </div>
+      <UserList users={users} onRemove={onRemove} />
+    </>
   )
 }
 
-export default History
+export default Histroy

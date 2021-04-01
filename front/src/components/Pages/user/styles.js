@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, {keyframes, media} from 'styled-components'
 
 const fadeIn = keyframes`
    from {
@@ -17,6 +17,10 @@ export const TabWrapper = styled.div`
   width: 70%;
   margin: 0 auto;
   margin-top: 30px;
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
 `
 
 export const FormWrapper = styled.form`
