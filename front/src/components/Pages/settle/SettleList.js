@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import {
   SettleListItem,
   SettleListHeader,
@@ -16,22 +16,20 @@ const SettleList = () => {
   const dispatch = useDispatch()
   const {settleList} = useSelector(state => state.settle)
 
-  const onRemoveSettleList = index => {
-    console.log(index)
-    console.log('눌림일단.')
+  const onRemoveSettleList = id => {
     dispatch({
       type: REMOVE_SETTLELIST,
-      data: index,
+      data: id,
     })
   }
 
   return (
     <>
-      {settleList.map((settle, index) => (
-        <div key={index}>
+      {settleList.map(settle => (
+        <div key={settle.id}>
           <SettleRemoveBtn
             onClick={() => {
-              onRemoveSettleList({index})
+              onRemoveSettleList(settle.id)
             }}
           />
           <SettleListItem>

@@ -29,6 +29,7 @@ const Settle = () => {
     }
   }, [modalStatus])
 
+  const [id, setId] = useState(0)
   const [meetTitle, onChangeMeetTitle, setMeetTitle] = useInput('')
   const [memberInput, onChangeMemberInput, setMemberInput] = useInput('')
   const [members, setMembers] = useState([])
@@ -82,10 +83,12 @@ const Settle = () => {
       setMeetTitle('')
       setMemberInput('')
       SetSettleList(true)
+      setId(id + 1)
 
       dispatch({
         type: ADD_SETTLELIST,
         data: {
+          id: id,
           settleTitle: meetTitle,
           settleMember: members,
           settleNumber: selectNumber,
