@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -25,7 +25,6 @@ export const AppWarpper = styled.div`
   width: 100%;
   height: 100%;
   max-width: 600px;
-
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
   padding: 15px 15px 10px 15px;
   position: absolute;

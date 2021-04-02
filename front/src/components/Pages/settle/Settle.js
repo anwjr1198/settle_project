@@ -7,17 +7,17 @@ import {
   SettleMakeBoxItem,
   SettleMakeBoxInput,
   SettleMakeBoxTitleInput,
-  PlusIcon,
+  ResetBtn,
+  PlusBtn,
   SettleMember,
   SettleMemberItem,
-  CloseIcon,
+  CloseBtn,
   SelectNumber,
   SettleCompleteBtn,
   SettleFinalBtn,
 } from './styles'
 import {useDispatch, useSelector} from 'react-redux'
-import {MODAL_OPEN} from '../../../reducers/utils'
-import AlertModal from '../../Modal/AlertModal'
+import {ADD_SETTLELIST} from '../../../reducers/settle'
 
 const Settle = () => {
   const dispatch = useDispatch()
@@ -37,20 +37,18 @@ const Settle = () => {
 
   const nextId = useRef(0)
 
-  const onAddMemberClick = useCallback(
-    e => {
-      if (memberInput.trim()) {
-        const member = {
-          id: nextId.current,
-          value: memberInput,
-        }
-        setMembers(members.concat(member))
-        setMemberInput('')
-        nextId.current += 1
+  const onAddMemberClick = useCallback(() => {
+    if (memberInput.trim()) {
+      const member = {
+        id: nextId.current,
+        value: memberInput.trim(),
       }
-    },
-    [memberInput]
-  )
+      setMembers(members.concat(member))
+      setMemberInput('')
+      nextId.current += 1
+    }
+  }, [memberInput])
+
   const onAddMemberEnter = useCallback(
     e => {
       if (e.keyCode === 13 && memberInput.trim()) {
@@ -73,22 +71,24 @@ const Settle = () => {
     [members]
   )
 
-  // const onSettleReset = () => {
-  //   setMeetTitle('')
-  //   setMemberInput('')
-  //   setMembers([])
-  // }
+  const onSettleReset = useCallback(() => {
+    setMeetTitle('')
+    setMemberInput('')
+    setMembers([])
+  }, [])
 
   const onAddSettleList = () => {
-    console.log('버튼눌리')
     if (meetTitle && members.length !== 0 && selectNumber !== '선택') {
+      setMeetTitle('')
+      setMemberInput('')
       SetSettleList(true)
-    } else {
+
       dispatch({
-        type: MODAL_OPEN,
+        type: ADD_SETTLELIST,
         data: {
-          status: true,
-          contents: '값을 작성해주세요',
+          settleTitle: meetTitle,
+          settleMember: members,
+          settleNumber: selectNumber,
         },
       })
     }
@@ -98,15 +98,9 @@ const Settle = () => {
     console.log('눌림')
   }
 
-  console.log(meetTitle, members.length, selectNumber)
-  console.log(
-    meetTitle && members.length !== 0 && selectNumber !== '선택'
-      ? 'active'
-      : 'inActive'
-  )
   return (
     <SettleWrapper>
-      <AlertModal show={modalStatus} />
+      <ResetBtn onClick={onSettleReset} />
       <SettleMakeBox>
         <SettleMakeBoxItem>
           <p> 모임이름</p>
@@ -117,6 +111,7 @@ const Settle = () => {
             placeholder={'15자 이내로 작성'}
           />
         </SettleMakeBoxItem>
+
         <SettleMakeBoxItem>
           <p> 참석자 이름</p>
           <SettleMakeBoxInput
@@ -127,7 +122,7 @@ const Settle = () => {
             placeholder={'입력후 Enter or Click'}
           />
 
-          <PlusIcon onClick={onAddMemberClick} />
+          <PlusBtn onClick={onAddMemberClick} />
         </SettleMakeBoxItem>
 
         <SettleMember>
@@ -138,7 +133,7 @@ const Settle = () => {
                 key={index}
               >
                 {member.value}
-                <CloseIcon />
+                <CloseBtn />
               </SettleMemberItem>
             )
           })}
@@ -177,13 +172,10 @@ const Settle = () => {
         </SelectNumber>
       </SettleMakeBox>
 
-      {addSettleList ? (
-        <SettleList title={meetTitle} number={selectNumber} />
-      ) : (
-        ''
-      )}
+      {/* 정산목록 */}
+      {addSettleList ? <SettleList /> : ''}
 
-      <SettleFinalBtn onClick={onSettleFinal} disabled="disabled" size="mid">
+      <SettleFinalBtn onClick={onSettleFinal} size="mid">
         최종결산
       </SettleFinalBtn>
     </SettleWrapper>

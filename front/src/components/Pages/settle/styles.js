@@ -3,6 +3,7 @@ import {FaPlus} from 'react-icons/fa'
 import CommonBtn from '../../Button/CommonBtn'
 import {BsPencilSquare} from 'react-icons/bs'
 import {MdClose} from 'react-icons/md'
+import {GrPowerReset} from 'react-icons/gr'
 
 const fadeIn = keyframes`
    from {
@@ -33,7 +34,7 @@ export const SettleMakeBox = styled.div`
   box-shadow: 0px 0px 5px #c7bebe;
   background: #faf4f2;
   padding: 20px 15px 15px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `
 
 export const SettleMakeBoxItem = styled.div`
@@ -64,7 +65,6 @@ export const SettleMakeBoxTitleInput = styled.input`
     color: silver;
   }
 `
-
 export const SettleMakeBoxInput = styled.input`
   background: none;
   border: none;
@@ -83,15 +83,29 @@ export const SettleMakeBoxInput = styled.input`
     color: silver;
   }
 `
-export const PlusIcon = styled(FaPlus)`
+
+export const ResetBtn = styled(GrPowerReset)`
+  color: #ff9e7d;
+  font-size: 30px;
+  cursor: pointer;
+  float: right;
+  padding: 7px 7px 0 0;
+`
+
+export const PlusBtn = styled(FaPlus)`
   color: #ff9e7d;
   border-radius: 14px;
   box-shadow: 0px 0px 5px #ff9e7d;
   padding: 3px;
   font-size: 22px;
   margin-bottom: -5px;
-  margin-left: 15px;
+  margin-left: 5px;
   cursor: pointer;
+`
+export const CloseBtn = styled(MdClose)`
+  color: #ff9e7d;
+  font-weight: bold;
+  margin-left: 3px;
 `
 export const SettleMember = styled.div`
   margin: 10px 0;
@@ -106,11 +120,6 @@ export const SettleMemberItem = styled.div`
   font-size: 13px;
   margin-right: 5px;
   font-weight: bold;
-`
-export const CloseIcon = styled(MdClose)`
-  color: #ff9e7d;
-  font-weight: bold;
-  margin-left: 3px;
 `
 
 export const SelectNumber = styled.div`
@@ -158,20 +167,17 @@ export const SettleCompleteBtn = styled.button`
 `
 
 // 정산목록시작
-export const SettleListWrapper = styled.div`
-  margin: 0 auto;
+export const SettleListItem = styled.div`
+  background: #faf4f2;
+  margin: 0 auto 20px;
+  padding: 15px 13px 12px 13px;
   width: 97%;
   border-radius: 5px;
   box-shadow: 3px 3px 3px darkgray;
-  background: #faf4f2;
-  padding: 10px 20px 20px 20px;
-  margin-bottom: 30px;
 `
-export const SettleListItem = styled.div``
 export const SettleListHeader = styled.div`
   margin-bottom: 15px;
   text-align: left;
-
   & > p {
     font-weight: bold;
     font-size: 14px;
@@ -197,14 +203,20 @@ export const SettleListTitle = styled.span`
 `
 export const SettleListWriteBtn = styled(BsPencilSquare)`
   float: right;
-  font-size: 27px;
+  font-size: 25px;
   color: #ff9e7d;
+`
+export const SettleRemoveBtn = styled(MdClose)`
+  font-size: 28px;
+  cursor: pointer;
+  float: right;
+  padding: 0 7px 0 0;
 `
 export const SettleListMember = styled.div`
   margin: 10px 0;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 88%;
 `
 
 export const SettleListMemberItem = styled.div`
