@@ -1,13 +1,13 @@
-import React, { useState, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { CHANGE_PAGEINDEX } from '../../reducers/user'
-import { NavBarWrapper, NavBarItem } from './styles'
+import React, {useState, useCallback} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {CHANGE_PAGEINDEX} from '../../reducers/utils'
+import {NavBarWrapper, NavBarItem} from './styles'
 
 const NavBar = () => {
   const dispatch = useDispatch()
   const navBarIndex = parseInt(localStorage.getItem('pageIndex'))
-  const { pageIndex } = useSelector(state => state.user)
+  const {pageIndex} = useSelector(state => state.user)
   const [activeTab, setActiveTab] = useState(
     pageIndex === navBarIndex ? pageIndex : navBarIndex
   )

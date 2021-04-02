@@ -1,4 +1,4 @@
-import React, {useRef, useState, useCallback} from 'react'
+import React, {useRef, useState, useCallback, useEffect} from 'react'
 import SettleList from './SettleList'
 import useInput from '../../hooks/useInput'
 import {
@@ -8,29 +8,32 @@ import {
   SettleMakeBoxInput,
   SettleMakeBoxTitleInput,
   PlusIcon,
-  SettleBoxHideIcon,
   SettleMember,
   SettleMemberItem,
   CloseIcon,
   SelectNumber,
   SettleCompleteBtn,
-  SettleWriteBtn,
   SettleFinalBtn,
 } from './styles'
+import {useDispatch, useSelector} from 'react-redux'
+import {MODAL_OPEN} from '../../../reducers/utils'
+import AlertModal from '../../Modal/AlertModal'
 
 const Settle = () => {
+  const dispatch = useDispatch()
+  const {modalStatus, modalContents} = useSelector(state => state.utils)
+
+  useEffect(() => {
+    if (modalStatus == true) {
+      alert(modalContents)
+    }
+  }, [modalStatus])
+
   const [meetTitle, onChangeMeetTitle, setMeetTitle] = useInput('')
-
-  // const [memberInput, onChangeInput, setMemberInput] = useInput('')
-
-  const [memberInput, setMemberInput] = useState('')
+  const [memberInput, onChangeMemberInput, setMemberInput] = useInput('')
   const [members, setMembers] = useState([])
   const [selectNumber, onChangeSelect] = useInput('선택')
-
   const [addSettleList, SetSettleList] = useState(false)
-  const onChangeMemberInput = e => {
-    setMemberInput(e.target.value)
-  }
 
   const nextId = useRef(0)
 
@@ -77,11 +80,33 @@ const Settle = () => {
   // }
 
   const onAddSettleList = () => {
-    SetSettleList(true)
+    console.log('버튼눌리')
+    if (meetTitle && members.length !== 0 && selectNumber !== '선택') {
+      SetSettleList(true)
+    } else {
+      dispatch({
+        type: MODAL_OPEN,
+        data: {
+          status: true,
+          contents: '값을 작성해주세요',
+        },
+      })
+    }
   }
 
+  const onSettleFinal = () => {
+    console.log('눌림')
+  }
+
+  console.log(meetTitle, members.length, selectNumber)
+  console.log(
+    meetTitle && members.length !== 0 && selectNumber !== '선택'
+      ? 'active'
+      : 'inActive'
+  )
   return (
     <SettleWrapper>
+      <AlertModal show={modalStatus} />
       <SettleMakeBox>
         <SettleMakeBoxItem>
           <p> 모임이름</p>
@@ -130,7 +155,23 @@ const Settle = () => {
             <option>5차</option>
             <option>6차</option>
           </select>
-          <SettleCompleteBtn onClick={onAddSettleList}>
+          <SettleCompleteBtn
+            active={
+              meetTitle !== null &&
+              members.length !== 0 &&
+              selectNumber !== '선택'
+                ? 'active'
+                : 'inActive'
+            }
+            disabled={
+              meetTitle !== null &&
+              members.length !== 0 &&
+              selectNumber !== '선택'
+                ? false
+                : true
+            }
+            onClick={onAddSettleList}
+          >
             모임 추가
           </SettleCompleteBtn>
         </SelectNumber>
@@ -142,7 +183,9 @@ const Settle = () => {
         ''
       )}
 
-      <SettleFinalBtn size="mid">최종결산</SettleFinalBtn>
+      <SettleFinalBtn onClick={onSettleFinal} disabled="disabled" size="mid">
+        최종결산
+      </SettleFinalBtn>
     </SettleWrapper>
   )
 }

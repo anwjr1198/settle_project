@@ -1,16 +1,17 @@
-import React, { useCallback, useEffect } from 'react'
+import React, {useCallback, useEffect} from 'react'
 import useInput from '../../hooks/useInput'
-import { FormWrapper, Input } from './styles'
+import {FormWrapper, Input} from './styles'
 import CommonBtn from '../../Button/CommonBtn'
-import { LOG_IN_REQUEST, CHANGE_PAGEINDEX } from '../../../reducers/user'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import {LOG_IN_REQUEST} from '../../../reducers/user'
+import {CHANGE_PAGEINDEX} from '../../../reducers/utils'
+import {useDispatch, useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import Loading from '../../Loading'
 
 const LoginForm = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { me, logInLoading } = useSelector(state => state.user)
+  const {me, logInLoading} = useSelector(state => state.user)
   const [email, onChangeEmail] = useInput('')
   const [password, onChangePassword] = useInput('')
 
@@ -19,7 +20,7 @@ const LoginForm = () => {
       e.preventDefault()
       dispatch({
         type: LOG_IN_REQUEST,
-        data: { email, password },
+        data: {email, password},
       })
       dispatch({
         type: CHANGE_PAGEINDEX,

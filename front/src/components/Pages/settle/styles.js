@@ -1,5 +1,5 @@
-import styled, {keyframes} from 'styled-components'
-import {FaPlus, FaChevronDown} from 'react-icons/fa'
+import styled, {keyframes, css} from 'styled-components'
+import {FaPlus} from 'react-icons/fa'
 import CommonBtn from '../../Button/CommonBtn'
 import {BsPencilSquare} from 'react-icons/bs'
 import {MdClose} from 'react-icons/md'
@@ -93,12 +93,6 @@ export const PlusIcon = styled(FaPlus)`
   margin-left: 15px;
   cursor: pointer;
 `
-export const SettleBoxHideIcon = styled(FaChevronDown)`
-  font-size: 22px;
-  margin-bottom: -5px;
-  cursor: pointer;
-  float: right;
-`
 export const SettleMember = styled.div`
   margin: 10px 0;
   display: flex;
@@ -141,21 +135,32 @@ export const SelectNumber = styled.div`
     }
   }
 `
-export const SettleCompleteBtn = styled.span`
+export const SettleCompleteBtn = styled.button`
   background: none;
   padding: 3px 6px;
   margin-top: 1px;
   float: right;
-  cursor: pointer;
-  border: 2px solid #ff9e7d;
+  border: 2px solid silver;
   border-radius: 5px;
   font-size: 13px;
-  color: black;
+  color: silver;
+  cursor: pointer;
+  outline: none;
+
+  ${props =>
+    props.active === 'active' &&
+    css`
+      border: 2px solid #ff9e7d;
+      color: black;
+      background: none;
+      font-weight: bold;
+    `};
 `
 
 // 정산목록시작
 export const SettleListWrapper = styled.div`
   margin: 0 auto;
+  width: 97%;
   border-radius: 5px;
   box-shadow: 3px 3px 3px darkgray;
   background: #faf4f2;

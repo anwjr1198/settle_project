@@ -45,9 +45,9 @@ const CommonBtnWrapper = styled.button`
   }
 `
 
-const CommonBtn = ({children, size, onClick}) => {
+const CommonBtn = ({children, size, onClick, disabled}) => {
   return (
-    <CommonBtnWrapper onClick={onClick} size={size}>
+    <CommonBtnWrapper onClick={onClick} size={size} disabled={disabled}>
       {children}
     </CommonBtnWrapper>
   )

@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect } from 'react'
+import React, {useCallback, useEffect} from 'react'
 import CommonBtn from '../../Button/CommonBtn'
-import { useDispatch, useSelector } from 'react-redux'
-import { CHANGE_PAGEINDEX, LOG_OUT_REQUEST } from '../../../reducers/user'
-import { useHistory } from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {LOG_OUT_REQUEST} from '../../../reducers/user'
+import {CHANGE_PAGEINDEX} from '../../../reducers/utils'
+import {useHistory} from 'react-router-dom'
 
 const Mypage = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const { me } = useSelector(state => state.user)
+  const {me} = useSelector(state => state.user)
 
   const onLogOut = useCallback(() => {
     dispatch({

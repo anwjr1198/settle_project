@@ -10,7 +10,7 @@ import {
 import {FaChevronRight} from 'react-icons/fa'
 import {useDispatch, useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
-import {CHANGE_PAGEINDEX} from '../../../reducers/user'
+import {CHANGE_PAGEINDEX} from '../../../reducers/utils'
 
 const Home = () => {
   const dispatch = useDispatch()
